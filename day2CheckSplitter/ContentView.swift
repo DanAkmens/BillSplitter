@@ -12,6 +12,7 @@ struct ContentView: View {
     @State private var numberOfPeople = 2
     @State private var tipPercentage = 20
     
+    @State private var useRedText = false
     @FocusState private var amountIsFocused: Bool
     
     let tipPrecentages = [10, 15, 20, 25, 0]
@@ -62,11 +63,14 @@ struct ContentView: View {
                 
                 Section("Total amount") {
                     Text(totalAmount, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
-                }
                     
-                    Section("Amount per person") {
-                        Text(totalPerPerson, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
-                    }
+                }.foregroundStyle((totalAmount == 0) ? .red : .blue)
+                    
+                Section("Amount per person") {
+                    Text(totalPerPerson, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
+                    
+                }
+                    // useRedText.toggle()
                 }.navigationTitle("BillSplit")
             // lets us specify toolbar items for a view. These toolbar items might appear in various places on the screen – in the navigation bar at the top, in a special toolbar area at the bottom, and so on.
                 .toolbar {
